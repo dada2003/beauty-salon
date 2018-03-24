@@ -57,6 +57,55 @@ body
         width: 100%
         z-index: 1
 
+.text-center
+  text-align: center
+
+.preloader
+  position: fixed
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  z-index: 100
+  background-color: $dark
+
+@mixin opasity($opasity)
+  opacity: $opasity/100
+  filter: alpha(opacity=$opasity)
+.pulse
+  position: relative
+  left: 50%
+  top: 50vh
+  margin-left: -40px
+  margin-top: -40px
+  &::before,&::after
+    content: ''
+    border: 5px solid #323232
+    width: 80px
+    height: 80px
+    border-radius: 500px
+    position: absolute
+  &::before
+    animation: pulse-outer .8s ease-in infinite
+  &::after
+    animation: pulse-inner .8s linear infinite
+@keyframes pulse-outer
+  0%
+    @include opasity(100)
+  50%
+    @include opasity(50)
+  100%
+    @include opasity(0)
+
+@keyframes pulse-inner
+  0%
+    @include opasity(0)
+    transform: scale(0)
+  100%
+    @include opasity(100)
+    transform: scale(1)
+
+
 .logo
   img
     width: 125px
@@ -449,6 +498,14 @@ $colors: $red, $blue, $accent
       position: absolute
       background-color: rgba($accent, .92)
 
+  &-partners.section-overlay
+    &::before
+      background-color: #fff
+    .h2
+      margin-top: 10px
+      span
+        color: $accent
+
 .section-overlay
   &::before
     content: ''
@@ -502,8 +559,8 @@ input, textarea, select,
   line-height: inherit
   text-align: left
   input
-     font-size: 16px
-     background-color: $accent
+    font-size: 16px
+    background-color: $accent
   &.focus
     box-shadow: none
   &.dropdown-active::before
@@ -514,7 +571,7 @@ input, textarea, select,
     background-color: rgba($accent, .22)
 
 .selectize-control.single
-  .selectize-input,&.dropdown-active
+  .selectize-input, &.dropdown-active
     &::after
       border: none
       content: '\f107'
@@ -532,9 +589,9 @@ input, textarea, select,
     text-align: left
     &-content
       .option
-         padding: 5px 22px
-         &.active
-           background-color: lighten($accent, 15)
+      padding: 5px 22px
+      &.active
+        background-color: lighten($accent, 15)
 
 select
   padding: 10px 22px
@@ -552,21 +609,17 @@ select
   span
     margin: auto
 
-  &~*
+  & ~ *
     transition: all .5s ease
 
   &.active
-    &~*
+    & ~ *
       opacity: .5
       filter: blur(10px)
-
-
 
 .callback
   padding: 25% 0
   position: relative
-
-
 
   &-logo
     img
@@ -598,6 +651,241 @@ select
       color: #333333
   .button
     margin-top: 43px
+
+.s-review
+  padding-top: 120px
+
+.reviews
+  text-align: center
+
+.owl-dots
+  width: 100%
+  text-align: center
+  margin-top: 60px
+  margin-bottom: 60px
+  .owl-dot
+    width: 8px
+    height: 8px
+    background-color: #fff
+    border-radius: 50%
+    display: inline-block
+    margin: 4px
+    transition: background-color .25s ease, transform .25s ease
+    &.active
+      background-color: $accent
+      transform: scale(1.3)
+
+.review
+  margin-top: 20px
+  &-header
+    font-family: "Times New Roman", Serif
+    font-size: 30px
+    font-weight: 800
+    font-style: italic
+  &-date
+    font-family: "Times New Roman PS - Italic MT"
+    font-size: 14px
+    font-weight: 400
+    font-style: italic
+    margin-top: 2px
+    color: #888888
+  &-stars
+    margin: 18px 0 35px
+    font-size: 14px
+    font-weight: 400
+    color: $accent
+    .fa
+      margin: 0 2px
+  &-text
+    color: #a9a9a9
+    font-family: Raleway
+    font-size: 16px
+    font-weight: 300
+
+.quotes
+  position: absolute
+  width: 100%
+  &::after, &::before
+    content: ',,'
+    position: absolute
+    font-size: 54px
+    color: $accent
+    font-family: "Times New Roman", serif
+    font-weight: bold
+    line-height: 0
+    transform: rotate(180deg)
+    display: block
+  &::before
+    top: 220px
+    left: -60px
+  &::after
+    top: 182px
+    right: -60px
+    transform: rotate(0deg)
+
+.partners
+  .partner
+    height: 100%
+    display: flex
+    margin: auto
+  .owl-stage
+    display: flex
+  .owl-item
+    margin-top: 30px
+    img
+      max-width: 100%
+      width: auto
+      display: inline-block
+      margin: auto
+  .owl-nav
+    position: absolute
+    top: 0
+    width: 100%
+    z-index: 2
+    > div
+      position: absolute
+      top: 50px
+      color: #999
+      font-size: 30px
+      transition: opacity .5s ease
+      padding: 0 10px
+      &:hover
+        opacity: .6
+      &.owl-prev
+        left: -60px
+      &.owl-next
+        right: -60px
+
+.main-footer
+  background-color: #242424
+  padding: 3% 0
+  color: #fff
+  font-size: 14px
+  .footer-column
+    margin: 15px 0
+
+  p
+    position: absolute
+    font-size: 15px
+
+.logo-footer
+  width: 125px
+  height: auto
+  + p
+    color: #666666
+    padding: 0
+    margin:
+      bottom: 15px
+      top: 15px
+    font-size: 14px
+
+.footer-social
+  margin-top: 100px
+  .soc
+    li
+      display: inline-block
+      margin: 3px
+    a
+      color: #ABABAB
+      margin-bottom: 0
+      transition: color 5s ease, background-color .5s ease
+      &:hover
+        color: rgba(#fff, .8)
+
+.footer-menu
+  ul
+    padding: 0
+    margin: 0
+    list-style-type: none
+    li.active
+      a
+        color: $accent
+        &:before
+          color: $accent
+
+    a
+      color: #979797
+      transition: color .25s ease
+      display: inline-block
+      padding: 3.5px 0
+      text-decoration: underline
+      padding-left: 20px
+      position: relative
+      &:hover,&:focus
+        color: $accent
+        &:before
+          color: $accent
+      &::before
+        position: absolute
+        content: '\f219'
+        font-family: FontAwesome
+        left: 0
+        font-size: 12px
+        color: #ffffff
+        transition: color .5s ease
+        top: 6px
+
+
+
+.footer-addr
+  position: relative
+  font-size: 15px
+  padding-left: 24px
+  margin: 0 0 20px
+  .fa
+    position: absolute
+    left: 0
+    top: 6px
+    font-size: 18px
+    color: #797979
+
+.footer-phone
+  span
+  font-size: 26px
+  font-family: firasans,sans-serif
+  padding-top: 10px
+  display: block
+  .fa
+    font-size: 22px
+    top: 18px
+    left: 2px
+
+
+.map
+  max-height: 200px
+  opacity: .7
+  transition: opacity .5s ease
+  &:hover
+    opacity: 1
+
+
+.top
+  position: fixed
+  bottom: 20px
+  right: -100px
+  background-color: #797979
+  color: #000
+  border: 1px solid #797979
+  border-radius: 50%
+  z-index: 12
+  font-size: 26px
+  height: 50px
+  width: 50px
+  text-align: center
+  line-height: 50px
+  cursor: pointer
+  transition: all .3s ease
+  opacity: .5
+  &:hover
+    background-color: $accent
+    opacity: 1
+    color: #fff
+  &.active
+    right: 25px
+
+
+
+
 
 @import "media"
 // Всегда в конце
